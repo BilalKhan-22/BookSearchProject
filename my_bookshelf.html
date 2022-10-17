@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Styling the page -->
+        <meta name="author" content="Bilal Khan">
+        <title>Milestone 2</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+  
+        <div class = "title">
+
+            <h1>Bookshelf Page</h1>
+
+        </div>
+
+
+        <h2>My Bookshelf</h2>
+        <a href="book_search_2.html">Home</a>
+        <a href="my_bookshelf.html">My Bookshelf</a> 
+
+        <h1>Booklist</h1>
+        <div id="books"></div>
+        <script>
+            let data;
+            let htmlContent = [];
+
+            async function loadBookShelf() {
+                const link = `https://www.googleapis.com/books/v1/users/104979475235448932527/bookshelves/1001/volumes?key=AIzaSyCmxTh2yQPbAxTq7re85mkOnuuBl045ujk` 
+                try {
+                    const response = await fetch(link);
+                    data = await response.json();
+                    renderData(data);
+                }
+                catch (error) {
+                    console.error(error);
+                }
+            }
+
+            function renderData(books) {
+                if (!books) {
+                    document.getElementById("books").innerHTML = "There was an error getting the books, please try again later"
+                }
+                let htmlContent = []
+                for (let i = 0; i < books.items.length; i++) {
+                    let bookId = books.items[i].id;
+                    let bookInformation = books.items[i].volumeInfo;
+                    title = bookInformation.title;
+                    description = bookInformation.description;
+                    if (bookInformation.authors){
+                        authors = bookInformation.authors[0]
+                    } else {
+                        authors = "n/a"
+                    }
+                    
+                    subtitle = bookInformation.subtitle;
+                    publisher = bookInformation.publisher
+                    publishedDate = bookInformation.publishedDate
+                    pageCount = bookInformation.pageCount
+                    printType = bookInformation.printType
+                    categories = bookInformation.categories //array
+                    maturityRating = bookInformation.maturityRating
+                    contentVersion = bookInformation.contentVersion
+                    imageLinks = bookInformation.imageLinks //object
+                    bookImg = (bookInformation.imageLinks) ? bookInformation.imageLinks.thumbnail : "" ;
+                    language = bookInformation.language
+
+            
+                    htmlContent.push(`
+                        <div class="book">
+                            <p>
+                                <img src="${bookImg}" class="card-img" alt="...">	
+                                <a href="book_details.html?${bookId}"><h2 class="book-title" >${title}</h2></a>
+                                <h4 class='book-subtitle'>${subtitle ? subtitle : ""}</h4>
+                                <span class="book-author">Author ${authors}</span>
+                                <br>
+                                <hr style="border-bottom: 3px solid #17172a;"/>
+                            </p>	
+                        </div>	
+                    `)	
+                }
+
+                document.getElementById("books").innerHTML = htmlContent.join("")
+            }
+
+            window.onload = async () => {
+                await loadBookShelf();
+            }
+    
+        </script>
+    </body>
+</html>

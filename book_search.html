@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Styling the page -->
+        <meta name="author" content="Bilal Khan">
+        <title>Milestone 2</title>
+        <link rel="stylesheet" href="Milestone2Style.css">
+    </head>
+    <body>
+    <div class = "title">
+        <h1>Book Search Page</h1>
+    </div>
+    
+    <a href="book_search.html">Home</a>
+    <a href="my_bookshelf.html">My Bookshelf</a>
+
+        <!--Search Bar-->
+        <div class="box-center">
+            <input type="search" id="search-term" placeholder="Enter Search Term">
+            <br>
+            <button onclick="search()" id="searchBar"> Search </button>
+        </div>
+
+ 
+
+        <!--Page Dropdown Menu-->
+        <div class="title">
+            <h1>Booklist</h1>
+        </div>
+        <div id="book-container">
+            <div id="books" class="box-center"></div>
+        </div>
+        <div class="box-center">
+            <h3>Show page</h3>
+            <select id="drop" onchange="paginate()">
+                <option id="1" value="1">1</option>
+                <option id="2" value="2">2</option>
+                <option id="3" value="3">3</option>
+                <option id="4" value="4">4</option>
+            </select>
+        </div>            
+        
+
+        <script>
+          
+            let data;
+
+            async function search() {
+                const search_term = document.getElementById('search-term').value;
+                const link = `https://www.googleapis.com/books/v1/volumes?maxResults=40&q=${search_term.trim()}`              
+                try {
+                    const response = await fetch(link);
+                    // this is the syntax of a promise. Notice error handling is present in the catch block  
+                    // and async await doesn't exist
+                    // const response =  fetch(link).then(result => result.json()).catch(error => console.error(error));
+                    
+                    data = await response.json();
+                    renderData(data, 1);
+                    
+                } catch (error) {
+                    console.error(error);
+                    document.getElementById("books").innerHTML = "There was an error getting the data, please try again later"
+                }
+            }
+
+            function renderData(data, bookIndex) {
+                if (!data) {
+                    document.getElementById("books").innerHTML = "There was an error getting the data, please try again later"
+                }
+                let htmlContent = []
+                for (let i = ((bookIndex - 1) * 10); i < (bookIndex * 10); i++) {
+                    let bookId = data.items[i].id;
+                    let bookInformation = data.items[i].volumeInfo;
+                    title = bookInformation.title;
+                    description = bookInformation.description;
+                    if (bookInformation.authors){
+                        authors = bookInformation.authors[0]
+                    } else {
+                        authors = "n/a"
+                    }
+                    
+                    subtitle = bookInformation.subtitle;
+                    publisher = bookInformation.publisher
+                    publishedDate = bookInformation.publishedDate
+                    pageCount = bookInformation.pageCount
+                    printType = bookInformation.printType
+                    categories = bookInformation.categories //array
+                    maturityRating = bookInformation.maturityRating
+                    contentVersion = bookInformation.contentVersion
+                    imageLinks = bookInformation.imageLinks //object
+                    bookImg = (bookInformation.imageLinks) ? bookInformation.imageLinks.thumbnail : "" ;
+                    language = bookInformation.language
+
+            
+                    htmlContent.push(`
+                        <div class="book">
+                            <p>
+                                <img src="${bookImg}" class="card-img" alt="...">	
+                                <a href="book_details.html?${bookId}"><h2 class="book-title" >${title}</h2></a>
+                                <h4 class='book-subtitle'>${subtitle ? subtitle : ""}</h4>
+                                <span class="book-author">Author ${authors}</span>
+                                <br>
+                                <hr style="border-bottom: 3px solid #17172a;"/>
+                            </p>	
+                        </div>	
+                    `)	
+                }
+
+                document.getElementById("books").innerHTML = htmlContent.join("")
+            }
+
+            function paginate() {
+                var select = document.getElementById('drop');
+                var value = select.options[select.selectedIndex].text;
+                var bookIndex = Number(value);
+                renderData(data, bookIndex)
+            }
+
+        </script>
+    </body>
+</html>

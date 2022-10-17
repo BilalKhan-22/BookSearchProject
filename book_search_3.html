@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Styling the page -->
+        <meta name="author" content="Bilal Khan">
+        <title>Milestone 4</title>
+        <link rel="stylesheet" href="m4_style.css">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    </head>
+    <body>
+    <div class = "title">
+        <h1>Book Search Page</h1>
+    </div>
+    
+    <a href="book_search_3.html">Home</a>
+    <a href="my_bookshelf_2.html">My Bookshelf</a>
+
+        <!--Search Bar-->
+        <div class="box-center">
+            <input type="search" id="search-term" placeholder="Enter Search Term">
+            <br>
+            <button onclick="search()" id="searchBar"> Search </button>
+        </div>
+        
+        <!-- Layout Switch -->
+        <p>Click to switch layout: <a href="#" id='btn-list'>List View</a> | <a href="#" id='btn-grid'>Grid View</a></p>
+
+
+        <!--Page Buttons-->
+        <div class="title">
+            <h1>Booklist</h1>
+        </div>
+        <div class="book-container-grid" id="books" ></div>
+
+        <div class="box-center">
+            <h3>Show page</h3>
+            <div id="page-buttons" onchange="paginate()">
+                <button id="1" value="1" onclick="paginate(0)">1</button>
+                <button id="2" value="2" onclick="paginate(10)">2</button>
+                <button id="3" value="3" onclick="paginate(20)">3</button>
+                <button id="4" value="4" onclick="paginate(30)">4</button>
+                <button id="5" value="5" onclick="paginate(40)">5</button>
+            </div>
+        </div>            
+        
+            <script>
+            
+                let data;
+
+                // Creates an asynchronous function that takes in a search term, puts it into the Google Books API 
+                async function search(value=0) {
+                    const search_term = document.getElementById('search-term').value;
+                    const link = `https://www.googleapis.com/books/v1/volumes?startIndex=${value}&maxResults=10&q=${search_term.trim()}`              
+                    
+                    // Try/catch block takes in response, loads all books related to user input, then catches error if something goes wrong in displaying data 
+                    try {
+                        const response = await fetch(link);
+                        data = await response.json();
+                        renderData(data, 1);
+                        
+                    } catch (error) {
+                        console.error(error);
+                        document.getElementById("books").innerHTML = "There was an error getting the data, please try again later"
+                    }
+                }
+
+                // This function renders data and displays it to the screen, if no data is there, displays error message.
+                function renderData(data, bookIndex) {
+                    if (!data) {
+                        document.getElementById("books").innerHTML = "There was an error getting the data, please try again later"
+                    }
+                    // 
+                    let htmlContent = []
+                    for (let i = 0; i < data.items.length; i++) {
+                        let bookId = data.items[i].id;
+                        let bookInformation = data.items[i].volumeInfo;
+                        title = bookInformation.title;
+                        description = bookInformation.description;
+                        if (bookInformation.authors){
+                            authors = bookInformation.authors[0]
+                        } else {
+                            authors = "n/a"
+                        }
+                        
+                        // 
+                        subtitle = bookInformation.subtitle;
+                        publisher = bookInformation.publisher
+                        publishedDate = bookInformation.publishedDate
+                        pageCount = bookInformation.pageCount
+                        printType = bookInformation.printType
+                        categories = bookInformation.categories //array
+                        maturityRating = bookInformation.maturityRating
+                        contentVersion = bookInformation.contentVersion
+                        imageLinks = bookInformation.imageLinks //object
+                        bookImg = (bookInformation.imageLinks) ? bookInformation.imageLinks.thumbnail : "" ;
+                        language = bookInformation.language
+
+                        // 
+                        htmlContent.push(`
+                            <div class="book">
+                                <p>
+                                    <img src="${bookImg}" class="card-img" alt="...">
+                                    <a href="book_details.html?${bookId}"><h2 class="book-title" >${title}</h2></a>
+                                    <h4 class='book-subtitle'>${subtitle ? subtitle : ""}</h4>
+                                    <span class="book-author">Author ${authors}</span>
+                                    <br>
+                                </p>	
+                            </div>	
+                        `)	
+                    }
+
+                    document.getElementById("books").innerHTML = htmlContent.join("")
+                }
+
+                // 
+                $(function(){
+                    $("#btn-list").click(function (){
+                        $(".book-container-grid").removeClass('book-container-grid').addClass("book-container-list");
+                    });
+
+                    $("#btn-grid").click(function (){
+                        $(".book-container-list").removeClass('book-container-list').addClass("book-container-grid");
+                    });
+                });
+
+                // 
+                async function paginate(value, search_term) {
+                    var bookIndex = Number(value);
+                    var search_term = document.getElementById('search-term').value;
+                    const response = await search(value, search_term);
+                    renderData(data, bookIndex)
+                }
+
+            </script>
+
+    </body>
+</html>

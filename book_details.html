@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Styling the page -->
+        <meta name="author" content="Bilal Khan">
+        <title>Milestone 4</title>
+        <link rel="stylesheet" href="m4_style.css">
+    </head>
+    <body>
+    <div class = "title">
+        <h1>Book</h1>
+    </div>
+    <div id="book"></div>
+    <script>
+        let htmlContent = [];
+
+        async function loadBook() {
+            let localURL = document.location.href;
+            let booksAPIUrl = `https://www.googleapis.com/books/v1/volumes/${localURL.split("?")[1]}`;
+            try {
+                const response = await fetch(booksAPIUrl);
+                const bookDetailsData = await response.json();
+                renderData(bookDetailsData)
+            } catch (error) {
+                console.error(error);
+            }
+            
+        }
+
+
+        function renderData(book) {
+            let authors;
+            let bookVolumeInfo = book.volumeInfo;
+            let bookImg = (bookVolumeInfo.imageLinks) ? bookVolumeInfo.imageLinks.thumbnail : "" ;
+            if (bookVolumeInfo.authors){
+                authors = bookVolumeInfo.authors[0]
+            } else {
+                authors = "n/a"
+            }
+            htmlContent = `
+                <div style="text-align:center">
+                    <p>
+                        <img src="${bookImg}" class="card-img" alt="...">	
+                        <h2 class="book-title">${bookVolumeInfo.title}</h2>
+                        <span class="book-author">Author ${authors}</span>
+                        <br /><span>Publisher: ${bookVolumeInfo.publisher}</span>
+                        <br /><span>Published Date: ${bookVolumeInfo.publishedDate}</span>
+                        <br /><span>Pages: ${bookVolumeInfo.pageCount}</span>
+                        <br /><span>Print Type: ${bookVolumeInfo.printType.toLowerCase()}</span>
+                        <br /><span>Categories: ${bookVolumeInfo.categories}</span>
+                        <br /><span>Maturity Rating: ${bookVolumeInfo.maturityRating.split("_").join(" ").toLowerCase()}</span>
+                        <br /><span>Content Version: ${bookVolumeInfo.contentVersion}</span>
+                        <br /><span>language: ${bookVolumeInfo.language}</span>
+                        <br /><span>Description: ${bookVolumeInfo.description}</span>
+                    </p>
+                </div>
+            `
+
+            document.getElementById("book").innerHTML = htmlContent;
+        }
+
+        window.onload = async function loadPage() {
+            await loadBook();
+        }
+    
+          
+    </script>
+    </body>
+</html> 

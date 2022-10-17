@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Styling the page -->
+        <meta name="author" content="Bilal Khan">
+        <title>Milestone Homepage</title>
+        <link rel="stylesheet" href="indexStyle.css">
+    </head>
+    <body>
+    <div class = "title">
+        <h1>Milestone Homepage</h1>
+    </div>
+
+
+        <h2>IT 4403 Information</h2>
+        <p>This course covers advanced topics on web and mobile applications with a focus on modern web 
+            application architectures and mobile friendly user interfaces.
+        </p>
+        <p>
+            <a href="https://ccse.kennesaw.edu/it/%22%3EKSU">IT Department</a>
+        </p>
+
+
+        <h2>Milestone Information</h2>
+        <p>In this project, we are going to create a single-page application (SPA) style web application to search
+            and display details of books.
+            <ul>
+                <li><a href=booklist.html>IT 4403 INDIVIDUAL PROJECT MILESTONE #1: JSON</a></li> 
+                <li><a href=book_search.html>IT 4403 INDIVIDUAL PROJECT MILESTONE #2: GOOGLE BOOKS API</a></li> 
+                <li><a href=book_search_2.html>IT 4403 INDIVIDUAL PROJECT MILESTONE #3: BOOKS SEARCH AJAX</a></li> 
+                <li><a href=book_search_3.html>IT 4403 INDIVIDUAL PROJECT MILESTONE #4: IMPROVED SPA UI</li> 
+            </ul>
+        </p>
+        <P>
+            <a href="booklist.html">View All books</a>
+        </P>
+        
+        <p id="demo"></p>
+        <script>
+            
+            document.getElementById("demo").innerHTML = bookJSON.kind + bookJSON.id;
+        </script>
+    </body>
+</html>

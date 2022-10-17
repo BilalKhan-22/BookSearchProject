@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Styling the page -->
+        <meta name="author" content="Bilal Khan">
+        <title>Milestone 1</title>
+        <link rel="stylesheet" href="MilestoneStyle.css">
+    </head>
+    <body>
+    <div class = "title">
+        <h1>Book</h1>
+    </div>
+    <div id="book"></div>
+    <script>
+
+        let htmlContent = [];
+        let book = {
+            "kind": "books#volume",
+            "id": "Wfan6L9RGgYC",
+            "etag": "sTBvVvQbQ9I",
+            "selfLink": "https://www.googleapis.com/books/v1/volumes/Wfan6L9RGgYC",
+            "volumeInfo": {
+                "title": "The Modern Web",
+                "subtitle": "Multi-device Web Development with HTML5, CSS3, and JavaScript",
+                "authors": [
+                    "Peter Gasston"
+                ],
+                "publisher": "No Starch Press",
+                "publishedDate": "2013",
+                "description": "<p><b>A Guide to Modern Web Development</b><br></p><p>Today's web technologies are evolving at near-light speed, bringing the promise of a seamless Internet ever closer to reality. When users can browse the Web on a three-inch phone screen as easily as on a fifty-inch HDTV, what's a developer to do?</p><p>Peter Gasston's <i>The Modern Web</i> will guide you through the latest and most important tools of device-agnostic web development, including HTML5, CSS3, and JavaScript. His plain-English explanations and practical examples emphasize the techniques, principles, and practices that you'll need to easily transcend individual browser quirks and stay relevant as these technologies are updated.</p><p>Learn how to:</p><p>* Plan your content so that it displays fluidly across multiple devices<br>* Design websites to interact with devices using the most up-to-date APIs, including Geolocation, Orientation, and Web Storage<br>* Incorporate cross-platform audio and video without using troublesome plug-ins<br>* Make images and graphics scalable on high-resolution devices with SVGUse powerful HTML5 elements to design better forms</p><p>Turn outdated websites into flexible, user-friendly ones that take full advantage of the unique capabilities of any device or browser. With the help of <i>The Modern Web</i>, you'll be ready to navigate the front lines of device-independent development.</p>",
+                "industryIdentifiers": [
+                    {
+                    "type": "ISBN_10",
+                    "identifier": "1593274874"
+                    },
+                    {
+                    "type": "ISBN_13",
+                    "identifier": "9781593274870"
+                    }
+                ],
+                "readingModes": {
+                    "text": true,
+                    "image": true
+                },
+                "pageCount": 264,
+                "printedPageCount": 266,
+                "dimensions": {
+                    "height": "24.00 cm",
+                    "width": "17.80 cm",
+                    "thickness": "1.50 cm"
+                },
+                "printType": "BOOK",
+                "categories": [
+                    "Computers / Web / Design",
+                    "Computers / Software Development & Engineering / General",
+                    "Computers / Programming Languages / JavaScript",
+                    "Computers / Programming Languages / HTML",
+                    "Computers / Web / Web Programming"
+                ],
+                "averageRating": 4.5,
+                "ratingsCount": 3,
+                "maturityRating": "NOT_MATURE",
+                "allowAnonLogging": true,
+                "contentVersion": "1.2.3.0.preview.3",
+                "panelizationSummary": {
+                    "containsEpubBubbles": false,
+                    "containsImageBubbles": false
+                },
+                "imageLinks": {
+                    "smallThumbnail": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=5&edge=curl&imgtk=AFLRE73kKvfA9CLyE59CtERyyBpdIgL4u2XEUzXGhVaXdZlsDy71OyQns4Q01ql2zX2UC3elp3vUAny7jM4MS6j2FeUp8StSyZ30qWR8vh0vf5MeOe7nBlIh0PpOuUDbVRs3H3rYqB5c&source=gbs_api",
+                    "thumbnail": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=1&edge=curl&imgtk=AFLRE737F2zt_mMkf38n_S56jzxZII26M4PCTkdXsYJPXBDdqd34TGqtL8iP2ZesAcHwm7qYLfAOzvX-DHTPy9Qt2cp9xHNoGrQIYRHHmLcwV0I5P_m7yU7KyyFkiZ8pkguR_k1NLDhG&source=gbs_api",
+                    "small": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE72953UcCXY0RUD0Xm4eblaNuiXgOunAKAuOf1byM0ySYpuAv1Ch5MCnx5W5bYt6kTa3IV0tCkN7viRmIZOZQpnn_B0Xq68BOX9JNBFCw3d8vFBWYBBp4i-dUxvg3ny-F_vhK1wC&source=gbs_api",
+                    "medium": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=3&edge=curl&imgtk=AFLRE700CJxaxjyFpe9xA8Q9baz9hEeoHeJQnST5bqU8mMuJc6PkTRoTNvTSLp76k9gyB690WBU3O0korICaDmEaAKd4y7ZQgGmFm9l9IqOgD6XEpq7xpgf0j9yQpfKfuUvBo7HhXFdR&source=gbs_api",
+                    "large": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=4&edge=curl&imgtk=AFLRE71P1RQu37d-GX2Yfj5b3ACeamnHJdlSLkt3MRxCbLQqraJoprsfapwoRh8l-pjXM-Pkei136PTJRiLNzXCEJF0v7ZdCTGv0Q8NoZK6mDBZdncxyCtooeoPUVtRaKGLToOWXk6j1&source=gbs_api",
+                    "extraLarge": "http://books.google.com/books/content?id=Wfan6L9RGgYC&printsec=frontcover&img=1&zoom=6&edge=curl&imgtk=AFLRE739Nu1X3DltWCRwomQqoedBmA0-Iuv8ssb1JgDzlytOSTV7sebuYdUsVNDtQvr3x62fEQv4Iom5wdDo75iQW1hhJpP7JKbUSaJRn9iHgFkQH0c1VVSpm3Tdk4zFjhg1N6OEWbCp&source=gbs_api"
+                },
+                "language": "en",
+                "previewLink": "http://books.google.com/books?id=Wfan6L9RGgYC&hl=&source=gbs_api",
+                "infoLink": "https://play.google.com/store/books/details?id=Wfan6L9RGgYC&source=gbs_api",
+                "canonicalVolumeLink": "https://play.google.com/store/books/details?id=Wfan6L9RGgYC"
+            },
+            "layerInfo": {
+            "layers": [
+                    {
+                    "layerId": "geo",
+                    "volumeAnnotationsVersion": "8"
+                    }
+                ]
+            },
+            "saleInfo": {
+                "country": "US",
+                "saleability": "NOT_FOR_SALE",
+                "isEbook": false
+            },
+            "accessInfo": {
+                "country": "US",
+                "viewability": "PARTIAL",
+                "embeddable": true,
+                "publicDomain": false,
+                "textToSpeechPermission": "ALLOWED",
+                "epub": {
+                    "isAvailable": true
+                },
+                "pdf": {
+                    "isAvailable": true
+                },
+                "webReaderLink": "http://play.google.com/books/reader?id=Wfan6L9RGgYC&hl=&printsec=frontcover&source=gbs_api",
+                "accessViewStatus": "SAMPLE",
+                "quoteSharingAllowed": false
+            }
+        }
+        let bookInformation = book.volumeInfo;
+        title = bookInformation.title;
+        description = bookInformation.description;
+        authors = bookInformation.authors[0];
+        subtitle = bookInformation.subtitle;
+        publisher = bookInformation.publisher
+        publishedDate = bookInformation.publishedDate
+        pageCount = bookInformation.pageCount
+        printType = bookInformation.printType
+        categories = bookInformation.categories //array
+        maturityRating = bookInformation.maturityRating
+        contentVersion = bookInformation.contentVersion
+        imageLinks = bookInformation.imageLinks //object
+        language = bookInformation.language
+        infoLink = bookInformation.infoLink
+        canonicalVolumeLink = bookInformation.canonicalVolumeLink
+        
+        htmlContent = `
+            <div style="text-align:center">
+                <p>
+                    <h2 class="book-title">${title}</h2>
+                    <h4 class='book-subtitle'>${subtitle}</h4>
+                    <span class="book-author">Author ${authors}</span>
+                    <br /><span>Publisher: ${publisher}</span>
+                    <br /><span>Published Date: ${publishedDate}</span>
+                    <br /><span>Pages: ${pageCount}</span>
+                    <br /><span>Print Type: ${printType.toLowerCase()}</span>
+                    <br /><span>Categories: ${categories}</span>
+                    <br /><span>Maturity Rating: ${maturityRating.split("_").join(" ").toLowerCase()}</span>
+                    <br /><span>Content Version: ${contentVersion}</span>
+                    <br /><span>language: ${language}</span>
+                    <br /><span>Description: ${description}</span>
+                </p>
+            </div>
+        `
+
+        document.getElementById("book").innerHTML = htmlContent;
+
+
+    </script>
+    </body>
+</html>
